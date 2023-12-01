@@ -20,12 +20,13 @@ import {
 } from "../util/hasClosest";
 import {hasClosestByHeadings} from "../util/hasClosestByHeadings";
 import {matchHotKey} from "../util/hotKey";
-import {getEditorRange, getSelectPosition, setSelectionFocus} from "../util/selection";
+import {getCursorPosition, getEditorRange, getSelectPosition, setSelectionFocus} from "../util/selection";
 import {keydownToc} from "../util/toc";
 import {expandMarker} from "./expandMarker";
 import {processAfterRender, processHeading} from "./process";
 
 export const processKeydown = (vditor: IVditor, event: KeyboardEvent) => {
+    console.log(event.key)
     vditor.ir.composingLock = event.isComposing;
     if (event.isComposing) {
         return false;
@@ -35,6 +36,12 @@ export const processKeydown = (vditor: IVditor, event: KeyboardEvent) => {
     if (event.key.indexOf("Arrow") === -1 && event.key !== "Meta" && event.key !== "Control" && event.key !== "Alt" &&
         event.key !== "Shift" && event.key !== "CapsLock" && event.key !== "Escape" && !/^F\d{1,2}$/.test(event.key)) {
         vditor.undo.recordFirstPosition(vditor, event);
+    }
+
+    if (event.key === "/") {
+        console.log(66666)
+        console.log(getCursorPosition(vditor.element))
+        vditor.options.onSlash(getCursorPosition(vditor.element))
     }
 
     const range = getEditorRange(vditor);

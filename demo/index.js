@@ -50,6 +50,9 @@ if (window.innerWidth < 768) {
 }
 const initVditor = (language) => {
     window.vditor = new Vditor('vditor', {
+        onSlash: (position) => {
+            console.log(position)
+        },
         // _lutePath: `http://192.168.31.194:9090/lute.min.js?${new Date().getTime()}`,
         _lutePath: 'src/js/lute/lute.min.js',
         // cdn: 'http://localhost:9000',
